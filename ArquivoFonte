@@ -66,13 +66,20 @@ select * from nota n
 inner join pedido p
 on n.id= p.fk_nota_id
 
-select * from solicitacao soli 
+ select day(soli.dataemissao) as 'Dia',
+ month(soli.dataemissao) as 'Mês',
+ year(soli.dataemissao) as 'Ano',
+ len(soli.nomeproduto) as 'Tamanho',
+ n.qtde * n.valorunit as 'Total da Nota',
+ * from solicitacao soli 
  inner join cotacao c 
  on soli.id = c.fk_solicitacao_id
  inner join pedido p
  on c.fk_pedido_id = p.id
  inner join nota n
  on n.id = p.fk_nota_id
+ where soli.id > 1
+ and LEN(soli.nomeproduto) >= 3
 
  --tabela solicitacao se relaxiona com a tabela cotacao 
  --o campo id chave primaria (PK) da solicitacao se 
@@ -81,5 +88,5 @@ select * from solicitacao soli
  --o proximo relacionamento ocorre entre as tabelas cotacao e pedido
  --a partir dos campos id (PK) pedido e fk_pedido_id (FK)da tabela cotacao 
 
- --o procimo relacionamento ocorre com as tabelas pedidod e notas a partir 
- --dos campos id (PK) nota e campo fk_nota_id (FK) da tabela pedido
+ --o proximo relacionamento ocorre com as tabelas pedidod e notas a partir 
+ -- dos campos id (PK) nota e campo fk_nota_id (FK) da tabela pedido  
