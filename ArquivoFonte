@@ -90,3 +90,38 @@ on n.id= p.fk_nota_id
 
  --o proximo relacionamento ocorre com as tabelas pedidod e notas a partir 
  -- dos campos id (PK) nota e campo fk_nota_id (FK) da tabela pedido  
+
+
+ --1)SELEÇÃO DE TODOAS AS TABELASS
+ select * from solicitacao soli 
+ inner join cotacao c 
+ on soli.id = c.fk_solicitacao_id
+ inner join pedido p
+ on c.fk_pedido_id = p.id
+ inner join nota n
+ on n.id = p.fk_nota_id
+
+ --2) SOLICITAÇÕES COM VALOR ACIMA DE 245 E PEDIDOS QTDE MENOR QUE 487
+ select * from solicitacao soli 
+ inner join cotacao c 
+ on soli.id = c.fk_solicitacao_id
+ inner join pedido p
+ on c.fk_pedido_id = p.id
+ and soli.valor > 245
+ and p.qtde < 4587
+ and p.qtde > 16
+ and p.valortotal != 1500
+
+  --3) MOSTRAR ID DO PEDIDO E VLR TOTAL, BEM COMO ID DA COTAÇÃO E A MULTIPLICACAO DA
+  --QTDE PELO VALOR UNITARIO
+ 
+ select p.id, p.valortotal, c.id, c.qtde * c.valorunit from solicitacao soli 
+ inner join cotacao c 
+ on soli.id = c.fk_solicitacao_id
+ inner join pedido p
+ on c.fk_pedido_id = p.id
+ inner join nota n
+ on n.id = p.fk_nota_id
+
+ --4)  
+  
