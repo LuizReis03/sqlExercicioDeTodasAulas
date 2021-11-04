@@ -124,4 +124,12 @@ on n.id= p.fk_nota_id
  on n.id = p.fk_nota_id
 
  --4)  
-  
+ select c.* from solicitacao soli 
+ inner join cotacao c 
+ on soli.id = c.fk_solicitacao_id
+ inner join pedido p
+ on c.fk_pedido_id = p.id
+ inner join nota n
+ on n.id = p.fk_nota_id
+ where MONTH(soli.dataemissao) in (4,5,7,8)
+ and YEAR(soli.dataemissao) in (2018)
