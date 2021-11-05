@@ -133,3 +133,59 @@ on n.id= p.fk_nota_id
  on n.id = p.fk_nota_id
  where MONTH(soli.dataemissao) in (4,5,7,8)
  and YEAR(soli.dataemissao) in (2018)
+
+
+--8) Mostre a qtde notas, onde a solicitação seja dos dias 4,5,8,9,22,25,26,27. 
+
+ select COUNT(n.id) 
+ from solicitacao soli 
+ inner join cotacao c 
+ on soli.id = c.fk_solicitacao_id
+ inner join pedido p
+ on c.fk_pedido_id = p.id
+ inner join nota n
+ on n.id = p.fk_nota_id
+ WHERE DAY(soli.dataemissao) in (4,5,8,9,22,25,26,27)
+ 
+ 
+ --9)Liste a soma do valor total do pedido oonde a cotação seja com qtde maior 5 
+ --e menor que 4585, e o nome do produto na solicitação contenha a letra A.
+ select sum(p.valortotal)
+ from solicitacao soli 
+ inner join cotacao c 
+ on soli.id = c.fk_solicitacao_id
+ and c.qtde > 5
+ and c.qtde < 4585
+ inner join pedido p
+ on c.fk_pedido_id = p.id
+ inner join nota n
+ on n.id = p.fk_nota_id
+ where soli.nomeproduto like '%a%'
+
+  ---------------------------------------------------------------------------------
+
+  --FUNÇOES DE DATA 
+  select DATEPART (YEAR , '02/01/2021') 
+
+  select DATEPART ( year, dataemissao)
+  from solicitacao
+
+  select DATEADD ( DAY,6, '20210201')
+  select DATEADD ( month,6, GETDATE() )
+
+  select dateadd(year,4,dataemissao)
+  from solicitacao
+
+  --DATEDIFF (unidade, data1, data2)
+  --DIFERENÇA ENTRE DATAS
+  select DATEDIFF (day, '20211104', '20210521')
+  select DATEDIFF (month, '20210504', '20211121')
+  select dataemissao, datediff (YEAR, '20150515', dataemissao)
+  from solicitacao
+  ----------------------
+  select DATEDIFF(day, s.dataemissao, c.data) as 'Dias'
+  from solicitacao s 
+  inner join cotacao c
+  on s.id = c.fk_solicitacao_id
+  inner join pedido p 
+  on p.id = c.fk_pedido_id
